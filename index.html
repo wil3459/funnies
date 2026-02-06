@@ -4,14 +4,19 @@
   <meta charset="UTF-8" />
   <title>Cheer up 💛</title>
   <style>
+    * {
+      box-sizing: border-box;
+    }
+
     body {
       margin: 0;
-      height: 100vh;
+      min-height: 100vh;
       display: flex;
       justify-content: center;
       align-items: center;
       background: linear-gradient(135deg, #fff3b0, #fde68a);
       font-family: "Arial", sans-serif;
+      padding: 0 10px;
     }
 
     .card {
@@ -19,69 +24,94 @@
       padding: 30px;
       border-radius: 20px;
       text-align: center;
-      width: 95%;         /* responsive width */
-      max-width: 600px;   /* won’t get too big on desktop */
+      width: 100%;
+      max-width: 600px;
+      min-height: 90vh; /* almost full screen on mobile */
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
       box-shadow: 0 10px 25px rgba(0,0,0,0.1);
     }
 
-
     h1 {
       color: #92400e;
+      margin-bottom: 20px;
     }
 
     p {
-      font-size: 18px;
+      font-size: 20px;
       color: #78350f;
-      min-height: 60px;
+      min-height: 70px;
     }
 
     button {
       margin-top: 20px;
-      padding: 12px 20px;
+      padding: 16px 24px;
       border: none;
       border-radius: 25px;
       background-color: #facc15;
       color: #78350f;
-      font-size: 16px;
+      font-size: 18px;
       cursor: pointer;
     }
 
     button:hover {
       background-color: #eab308;
     }
+
     .image-box {
-        position: relative;
-        width: 100%;
-        margin-top: 15px;
-        }
+      position: relative;
+      width: 100%;
+      margin-top: 20px;
+    }
 
     .image-box img {
-        width: 100%;
-        border-radius: 15px;
-        }
+      width: 100%;
+      height: auto;
+      border-radius: 15px;
+    }
 
     .image-text {
-        position: absolute;
-        bottom: 15px;
-        left: 50%;
-        transform: translateX(-50%);
-        background: rgba(255, 255, 255, 0.8);
-        color: #78350f;
-        padding: 8px 14px;
-        border-radius: 20px;
-        font-size: 16px;
-        }
-      
+      position: absolute;
+      bottom: 15px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(255, 255, 255, 0.85);
+      color: #78350f;
+      padding: 10px 16px;
+      border-radius: 20px;
+      font-size: 18px;
+      font-weight: bold;
+    }
 
+    @media (max-width: 500px) {
+      .card {
+        padding: 20px;
+        min-height: 95vh; /* fill almost all screen */
+      }
+
+      p {
+        font-size: 18px;
+      }
+
+      button {
+        padding: 14px 20px;
+        font-size: 16px;
+      }
+
+      .image-text {
+        font-size: 16px;
+        padding: 8px 12px;
+      }
+    }
   </style>
-  
 </head>
 <body>
 
   <div class="card">
     <h1>HELLO VELLE 🌻</h1>
-    <p id="message">DONT BE SAD
-    </p>
+    <p id="message">DONT BE SAD</p>
+
     <div id="image1" class="image-box" style="display:none;">
         <img src="image1.jpg" alt="First surprise">
         <div class="image-text">u cute</div>
@@ -92,63 +122,54 @@
         <div class="image-text">LUFF U BYE</div>
     </div>
 
-
     <button id="actionButton" onclick="newMessage()">Click HERE</button>
   </div>
   
   <script>
-  const messages = [
-    "you will get thru this",
-    "It’s okay to feel lost, you will figure it out",
-    "no matter what.....",
-    "you are the kindest person I know",
-    "and i trust that you know whats best for you",
-    "so whatever decision you make......",
-    "im sure its the right one",
-    "and ill be right here!!!!",
-    "this will make u feel even special HA",
-    "ok cheer up, i love you"
-  ];
+    const messages = [
+      "you will get thru this",
+      "It’s okay to feel lost, you will figure it out",
+      "no matter what.....",
+      "you are the kindest person I know",
+      "and i trust that you know whats best for you",
+      "so whatever decision you make......",
+      "im sure its the right one",
+      "and ill be right here!!!!",
+      "this will make u feel even special HA",
+      "ok cheer up, i love you"
+    ];
 
-  let index = 0;
-  let stage = "messages"; // messages → image1 → image2
-  const button = document.getElementById("actionButton");
+    let index = 0;
+    let stage = "messages"; // messages → image1 → image2
+    const button = document.getElementById("actionButton");
 
-  function newMessage() {
-    const messageEl = document.getElementById("message");
-    const img1 = document.getElementById("image1");
-    const img2 = document.getElementById("image2");
+    function newMessage() {
+      const messageEl = document.getElementById("message");
+      const img1 = document.getElementById("image1");
+      const img2 = document.getElementById("image2");
 
-    if (stage === "messages") {
-      if (index < messages.length) {
-        messageEl.innerText = messages[index];
-        index++;
-
-        // Change button text after first click
-        if (index === 1) {
-          button.innerText = "Click AGAIN 💛";
+      if (stage === "messages") {
+        if (index < messages.length) {
+          messageEl.innerText = messages[index];
+          index++;
+          if (index === 1) {
+            button.innerText = "Click AGAIN 💛";
+          }
+        } else {
+          stage = "image1";
+          messageEl.style.display = "none";
+          img1.style.display = "block";
+          button.innerText = "Next 👉";
         }
-
-      } else {
-        // Move to first image
-        stage = "image1";
-        messageEl.style.display = "none";
-        img1.style.display = "block";
-        button.innerText = "Next 👉"; // button during image1
+      } 
+      else if (stage === "image1") {
+        img1.style.display = "none";
+        img2.style.display = "block";
+        stage = "image2";
+        button.innerText = "BYE 👋";
       }
-    } 
-    else if (stage === "image1") {
-      // Move to second image
-      img1.style.display = "none";
-      img2.style.display = "block";
-      stage = "image2";
-      button.innerText = "BYE 👋"; // button at final image
     }
-  }
-</script>
-
-
+  </script>
 
 </body>
 </html>
-
