@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Cheer up 💛</title>
+  <style>
+    body {
+      margin: 0;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: linear-gradient(135deg, #fff3b0, #fde68a);
+      font-family: "Arial", sans-serif;
+    }
+
+    .card {
+      background: #fffdf5;
+      padding: 30px;
+      border-radius: 20px;
+      text-align: center;
+      width: 90%;         /* responsive width */
+      max-width: 400px;   /* won’t get too big on desktop */
+      box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+    }
+
+
+    h1 {
+      color: #92400e;
+    }
+
+    p {
+      font-size: 18px;
+      color: #78350f;
+      min-height: 60px;
+    }
+
+    button {
+      margin-top: 20px;
+      padding: 12px 20px;
+      border: none;
+      border-radius: 25px;
+      background-color: #facc15;
+      color: #78350f;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #eab308;
+    }
+    .image-box {
+        position: relative;
+        width: 100%;
+        margin-top: 15px;
+        }
+
+    .image-box img {
+        width: 100%;
+        border-radius: 15px;
+        }
+
+    .image-text {
+        position: absolute;
+        bottom: 15px;
+        left: 50%;
+        transform: translateX(-50%);
+        background: rgba(255, 255, 255, 0.8);
+        color: #78350f;
+        padding: 8px 14px;
+        border-radius: 20px;
+        font-size: 16px;
+        }
+
+  </style>
+</head>
+<body>
+
+  <div class="card">
+    <h1>HELLO VELLE 🌻</h1>
+    <p id="message">DONT BE SAD
+    </p>
+    <div id="image1" class="image-box" style="display:none;">
+        <img src="image1.jpg" alt="First surprise">
+        <div class="image-text">u cute</div>
+    </div>
+
+    <div id="image2" class="image-box" style="display:none;">
+        <img src="image2.jpg" alt="Second surprise">
+        <div class="image-text">LUFF U BYE</div>
+    </div>
+
+
+    <button id="actionButton" onclick="newMessage()">Click HERE</button>
+  </div>
+  
+  <script>
+  const messages = [
+    "you will get thru this",
+    "It’s okay to feel lost, you will figure it out",
+    "no matter what.....",
+    "you are the kindest person I know",
+    "and i trust that you know whats best for you",
+    "so whatever decision you make......",
+    "im sure its the right one",
+    "and ill be right here!!!!",
+    "this will make u feel even special HA",
+    "ok cheer up, i love you"
+  ];
+
+  let index = 0;
+  let stage = "messages"; // messages → image1 → image2
+  const button = document.getElementById("actionButton");
+
+  function newMessage() {
+    const messageEl = document.getElementById("message");
+    const img1 = document.getElementById("image1");
+    const img2 = document.getElementById("image2");
+
+    if (stage === "messages") {
+      if (index < messages.length) {
+        messageEl.innerText = messages[index];
+        index++;
+
+        // Change button text after first click
+        if (index === 1) {
+          button.innerText = "Click AGAIN 💛";
+        }
+
+      } else {
+        // Move to first image
+        stage = "image1";
+        messageEl.style.display = "none";
+        img1.style.display = "block";
+        button.innerText = "Next 👉"; // button during image1
+      }
+    } 
+    else if (stage === "image1") {
+      // Move to second image
+      img1.style.display = "none";
+      img2.style.display = "block";
+      stage = "image2";
+      button.innerText = "BYE 👋"; // button at final image
+    }
+  }
+</script>
+
+
+
+</body>
+</html>
+
